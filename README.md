@@ -1,5 +1,11 @@
 # Functional Ruby
 
+## Installing
+
+    gem install fn-ruby
+
+    require 'require 'functional-ruby'
+
 There are some utils for working in ruby in functional style.
 
 ### Currying, first parameters (apply_head, >>, %)
