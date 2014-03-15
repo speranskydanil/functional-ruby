@@ -4,7 +4,7 @@
 
     gem install fn-ruby
 
-    require 'require 'functional-ruby'
+    require 'functional-ruby'
 
 There are some utils for working in ruby in functional style.
 
