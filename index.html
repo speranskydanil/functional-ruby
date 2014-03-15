@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Functional Ruby : There are some utils for working in ruby in functional style." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Functional Ruby</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/speranskydanil/functional-ruby">View on GitHub</a>
+
+          <h1 id="project_title">Functional Ruby</h1>
+          <h2 id="project_tagline">There are some utils for working in ruby in functional style.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/speranskydanil/functional-ruby/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/speranskydanil/functional-ruby/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="functional-ruby" class="anchor" href="#functional-ruby"><span class="octicon octicon-link"></span></a>Functional Ruby</h1>
+
+<h2>
+<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
+
+<pre><code>gem install fn-ruby
+
+require 'functional-ruby'
+</code></pre>
+
+<p>There are some utils for working in ruby in functional style.</p>
+
+<h3>
+<a name="currying-first-parameters-apply_head--" class="anchor" href="#currying-first-parameters-apply_head--"><span class="octicon octicon-link"></span></a>Currying, first parameters (apply_head, &gt;&gt;, %)</h3>
+
+<pre><code>pow = -&gt; x, y { x ** y }
+(pow % 2)[3] #=&gt; 8
+</code></pre>
+
+<h3>
+<a name="currying-last-parameters-apply_tail-" class="anchor" href="#currying-last-parameters-apply_tail-"><span class="octicon octicon-link"></span></a>Currying, last parameters (apply_tail, &lt;&lt;)</h3>
+
+<pre><code>pow = -&gt; x, y { x ** y }
+(pow &lt;&lt; 2)[3] #=&gt; 9
+</code></pre>
+
+<h3>
+<a name="composing-compose-" class="anchor" href="#composing-compose-"><span class="octicon octicon-link"></span></a>Composing (compose, *)</h3>
+
+<pre><code>f = -&gt; x { x * x }
+g = -&gt; x { x + 1 }
+(f * g)[3] #=&gt; 16
+</code></pre>
+
+<h3>
+<a name="mapping-map-" class="anchor" href="#mapping-map-"><span class="octicon octicon-link"></span></a>Mapping (map, |)</h3>
+
+<pre><code>f = -&gt; x { x * x }
+d = [1, 2, 3]
+f | d #=&gt; [1, 4, 9]
+</code></pre>
+
+<h3>
+<a name="reducing-reduce-" class="anchor" href="#reducing-reduce-"><span class="octicon octicon-link"></span></a>Reducing (reduce, &lt;=)</h3>
+
+<pre><code>f = -&gt; a, e { a * e }
+d = [1, 2, 3]
+f &lt;= d #=&gt; 6
+</code></pre>
+
+<h3>
+<a name="memoization-memoize-" class="anchor" href="#memoization-memoize-"><span class="octicon octicon-link"></span></a>Memoization (memoize, +@)</h3>
+
+<p>You can make your function memoized just by typing <code>+</code> before it.</p>
+
+<pre><code>fact = +-&gt; n { n &lt; 2 ? 1 : n * fact[n - 1] }
+t = Time.now; fact[1000]; Time.now - t #=&gt; 0.018036605
+t = Time.now; fact[1000]; Time.now - t #=&gt; 2.6761e-05
+</code></pre>
+
+<h3>
+<a name="arithmetic" class="anchor" href="#arithmetic"><span class="octicon octicon-link"></span></a>Arithmetic</h3>
+
+<p>You can use usual arithmetic operators.</p>
+
+<h5>
+<a name="" class="anchor" href="#"><span class="octicon octicon-link"></span></a>+</h5>
+
+<pre><code>f = -&gt; x { x * x }
+g = -&gt; x { x + 1 }
+(f + g)[3] #=&gt; 13
+</code></pre>
+
+<h5>
+<a name="-" class="anchor" href="#-"><span class="octicon octicon-link"></span></a>-</h5>
+
+<pre><code>f = -&gt; x { x * x }
+g = -&gt; x { x + 1 }
+(f - g)[3] #=&gt; 5
+</code></pre>
+
+<h5>
+<a name="-1" class="anchor" href="#-1"><span class="octicon octicon-link"></span></a>/</h5>
+
+<pre><code>f = -&gt; x { x * x }
+g = -&gt; x { x + 1 }
+(f / g)[3] #=&gt; 2
+</code></pre>
+
+<h5>
+<a name="mult" class="anchor" href="#mult"><span class="octicon octicon-link"></span></a>mult</h5>
+
+<p>The <code>*</code> method is used for composing so we provide symbolic name for this.</p>
+
+<pre><code>f = -&gt; x { x * x }
+g = -&gt; x { x + 1 }
+f.mult(g)[5] #=&gt; 36
+</code></pre>
+
+<h3>
+<a name="working-with-methods" class="anchor" href="#working-with-methods"><span class="octicon octicon-link"></span></a>Working with methods</h3>
+
+<p>The <code>Symbol#@+</code> method is overloaded.</p>
+
+<pre><code>def sqr(x)
+  x * x
+end
+
+def inc(x)
+  x + 1
+end
+
+(+:sqr * +:inc)[3] #=&gt; 16
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Functional Ruby maintained by <a href="https://github.com/speranskydanil">speranskydanil</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
