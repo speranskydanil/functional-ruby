@@ -75,33 +75,19 @@ module FunctionalRuby
   alias +@ memoize
 
   ##
-  # Example
+  # Arithmetic
   #  f = -> x { x * x }
   #  g = -> x { x + 1 }
   #  (f + g)[3] #=> 13
-  # def +(f)
-  #   -> *args { self[*args] + f[*args] }
-  # end
-
-  ##
-  # Example
+  #
   #  f = -> x { x * x }
   #  g = -> x { x + 1 }
   #  (f - g)[3] #=> 5
-  # def -(f)
-  #   -> *args { self[*args] - f[*args] }
-  # end
-
-  ##
-  # Example
+  #
   #  f = -> x { x * x }
   #  g = -> x { x + 1 }
   #  (f / g)[3] #=> 2
-  # def /(f)
-  #   -> *args { self[*args] / f[*args] }
-  # end
-
- %w(+ - /).each do |meth|
+  %w(+ - /).each do |meth|
     define_method(meth) do |fn, *args|
       -> *args { self[*args].send(meth.to_sym, fn[*args]) }
     end
