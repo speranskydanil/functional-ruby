@@ -101,6 +101,12 @@ module FunctionalRuby
   #   -> *args { self[*args] / f[*args] }
   # end
 
+ %w(+ - /).each do |meth|
+    define_method(meth) do |fn, *args|
+      -> *args { self[*args].send(meth.to_sym, fn[*args]) }
+    end
+  end
+
   ##
   # Example
   #  f = -> x { x * x }
@@ -110,11 +116,6 @@ module FunctionalRuby
     -> *args { self[*args] * f[*args] }
   end
 
-   %w(+ - /).each do |meth|
-      define_method(meth) do |fn, *args|
-        -> *args { self[*args].send(meth.to_sym, fn[*args]) }
-      end
-    end
 end
 
 class Proc
